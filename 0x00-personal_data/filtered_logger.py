@@ -31,5 +31,5 @@ def filter_datum(fields: List[str],
     """ filter datus fxn """
     for field in fields:
         new_msg = f"{field}={redaction}{separator}"
-        msg = re.sub(field + "=.*?" + separator, new_msg, message)
+        msg = re.sub(field + "=.*?" + field + redaction + separator, new_msg, message)
     return msg
