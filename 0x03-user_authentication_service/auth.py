@@ -34,7 +34,7 @@ class Auth:
         except Exception as e:
             return False
         return pass_check
-    
+
     def create_session(self, email: str) -> str:
         """ creates a user login session """
         try:
@@ -49,6 +49,7 @@ class Auth:
 def _hash_password(password: str) -> bytes:
     """ hash fxn """
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
 
 def _generate_uuid() -> str:
     return str(uuid.uuid4())
