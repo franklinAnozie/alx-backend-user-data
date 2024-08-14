@@ -13,6 +13,7 @@ class Auth:
     """
 
     def __init__(self):
+        """ init """
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
@@ -30,10 +31,9 @@ class Auth:
         """ login validator """
         try:
             user = self._db.find_user_by(email=email)
-            pass_check = bcrypt.checkpw(password, user.hashed_password)
-        except Exception as e:
+        except NoResultFound:
             return False
-        return pass_check
+        return bcrypt.checkpw(password.encode(), user.hashed_password)
 
     def create_session(self, email: str) -> str:
         """ creates a user login session """
@@ -52,4 +52,5 @@ def _hash_password(password: str) -> bytes:
 
 
 def _generate_uuid() -> str:
+    """ generate uuid """
     return str(uuid.uuid4())
