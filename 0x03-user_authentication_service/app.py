@@ -34,9 +34,9 @@ def login():
     user = AUTH.valid_login(email, password)
     if not user:
         abort(401)
-    session = AUTH.create_session(email)
+    session_id = AUTH.create_session(email)
     response = jsonify({"email": email, "message": "logged in"})
-    response.set_cookie("session_id", session)
+    response.set_cookie("session_id", session_id)
     return response
 
 
@@ -44,6 +44,8 @@ def login():
 def logout():
     """ delete user session / logout route """
     session_id = request.cookies.get("session_id")
+    if not session_id:
+        abort(403)
     user = AUTH.get_user_from_session_id(session_id)
     if not user:
         abort(403)
@@ -54,7 +56,9 @@ def logout():
 @app.route("/profile", methods=["GET"], strict_slashes=False)
 def profile():
     """ gets the user's profile """
-    session_id = request.cookies.get(session_id)
+    session_id = request.cookies.get("session_id")
+    if not session_id:
+        abort(403)
     user = AUTH.get_user_from_session_id(session_id)
     if not user:
         abort(403)
