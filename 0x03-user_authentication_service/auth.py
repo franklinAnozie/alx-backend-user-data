@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """ password hash"""
 
 import bcrypt
@@ -27,6 +27,4 @@ class Auth:
 
 def _hash_password(password: str) -> bytes:
     """ hash fxn """
-
-    new_pass = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-    return new_pass
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
