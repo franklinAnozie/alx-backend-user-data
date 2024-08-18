@@ -24,9 +24,10 @@ class Auth():
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ auth not required """
+        if path is None or excluded_paths is None or len(excluded_paths) == 0:
+            return True
         if not path.endswith('/'):
             path = f"{path}/"
-        if (path is None | excluded_paths is None
-           | len(excluded_paths) == 0 | path not in excluded_paths):
-            return True
+            if path not in excluded_paths:
+                return True
         return False
