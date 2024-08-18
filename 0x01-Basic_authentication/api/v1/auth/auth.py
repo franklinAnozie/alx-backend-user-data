@@ -28,6 +28,6 @@ class Auth():
             return True
         if not path.endswith('/'):
             path = f"{path}/"
-            if path not in excluded_paths:
-                return True
+        if path not in excluded_paths:
+            return True
         return False
